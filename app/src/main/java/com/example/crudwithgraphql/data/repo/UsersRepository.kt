@@ -1,6 +1,6 @@
 package com.example.crudwithgraphql.data.repo
 
-import com.example.crudwithgraphql.data.datasource.RemoteDataSource
+import com.example.crudwithgraphql.data.datasource.UsersRemoteDataSource
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -8,8 +8,8 @@ private const val TAG = "UsersRepository"
 
 @Singleton
 class UsersRepository @Inject constructor(
-    private val remoteDataSource: RemoteDataSource
+    private val usersRemoteDataSource: UsersRemoteDataSource
 ) {
 
-    suspend fun getUsers() = remoteDataSource.getUsers()
+    suspend fun getUsers() = usersRemoteDataSource.getUsers()
 }
