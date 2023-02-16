@@ -1,0 +1,11 @@
+mutation CreatePhoto($title:String!, $url:String!, $thumbnailUrl:String!){
+    createPhoto(
+        input:{
+            title:$title,
+            url:$url,
+            thumbnailUrl:$thumbnailUrl
+        }
+    ){
+        id
+    }
+}

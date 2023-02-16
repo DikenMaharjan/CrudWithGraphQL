@@ -4,7 +4,9 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.apollographql.apollo3.ApolloClient
+import com.example.crudwithgraphql.CreatePhotoMutation
 import com.example.crudwithgraphql.feature_photos.data.PhotosPagingSource
+import com.example.crudwithgraphql.network.Resource
 import com.example.crudwithgraphql.network.SafeApiCall
 import com.example.crudwithgraphql.utils.Constants
 import kotlinx.coroutines.flow.Flow
@@ -41,4 +43,16 @@ class PhotosRepository @Inject constructor(
         ).flow
     }
 
+    suspend fun createPhoto(
+        photoTitle: String,
+        photoUrl: String
+    ): Resource<CreatePhotoMutation.Data> {
+        return safeApiCall.execute {
+            apolloClient.mutation(
+                CreatePhotoMutation(
+                    title = photoTitle, url = photoUrl, thumbnailUrl = photoUrl
+                )
+            )
+        }
+    }
 }

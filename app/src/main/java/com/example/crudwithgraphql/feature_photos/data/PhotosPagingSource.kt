@@ -49,6 +49,7 @@ class PhotosPagingSource(
                     nextKey = response.data.toNextKey()
                 )
             }
+            Resource.Idle, Resource.Loading -> error("Invalid States")
         }
     }
 

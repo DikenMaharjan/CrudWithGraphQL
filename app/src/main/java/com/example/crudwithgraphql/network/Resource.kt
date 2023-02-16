@@ -6,8 +6,11 @@ sealed class Resource<out T> {
     class Success<T>(val data: T) : Resource<T>()
     class Failure(
         val networkFailure: NetworkFailure,
-        val errorMsg:String = networkFailure.errorMsg
+        val errorMsg: String = networkFailure.errorMsg
     ) : Resource<Nothing>()
+
+    object Idle : Resource<Nothing>()
+    object Loading : Resource<Nothing>()
 }
 
 
