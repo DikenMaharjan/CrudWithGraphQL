@@ -1,6 +1,5 @@
 package com.example.crudwithgraphql
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.crudwithgraphql.data.repo.UsersRepository
@@ -17,9 +16,7 @@ class MainActivityViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            usersRepository.getUsers().apply {
-                Log.e(TAG, ": ${this.data} ", )
-            }
+
         }
     }
 }
