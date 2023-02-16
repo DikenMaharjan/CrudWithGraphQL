@@ -4,6 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
@@ -27,7 +29,8 @@ import com.example.crudwithgraphql.feature_photos.view.PhotosViewModel
 @Composable
 fun Photos(
     modifier: Modifier = Modifier,
-    viewModel: PhotosViewModel = hiltViewModel()
+    viewModel: PhotosViewModel = hiltViewModel(),
+    navigateToCreatePhotos: () -> Unit
 ) {
     val photos = viewModel.photos.collectAsLazyPagingItems()
 
@@ -45,6 +48,11 @@ fun Photos(
         modifier = modifier.fillMaxSize(),
         topBar = {
             TopAppBar(title = { Text(text = "Photos") })
+        },
+        floatingActionButton = {
+            FloatingActionButton(onClick = navigateToCreatePhotos) {
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Add Photos Icon")
+            }
         }
     ) { padding ->
         Box(modifier = Modifier.fillMaxSize()) {
