@@ -4,7 +4,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.apollographql.apollo3.ApolloClient
 import com.example.crudwithgraphql.GetPhotosQuery
-import com.example.crudwithgraphql.feature_photos.data.repo.PhotosRepository
+import com.example.crudwithgraphql.feature_photos.data.repo.Photo
 import com.example.crudwithgraphql.network.Resource
 import com.example.crudwithgraphql.network.SafeApiCall
 
@@ -12,17 +12,17 @@ class PhotosPagingSource(
     private val apolloClient: ApolloClient,
     private val safeApiCall: SafeApiCall,
     private val pageSize: Int
-) : PagingSource<PhotosPagingSource.Key, PhotosRepository.Photo>() {
+) : PagingSource<PhotosPagingSource.Key, Photo>() {
     data class Key(
         val page: Int,
         val limit: Int
     )
 
-    override fun getRefreshKey(state: PagingState<Key, PhotosRepository.Photo>): Key? {
+    override fun getRefreshKey(state: PagingState<Key, Photo>): Key? {
         return null
     }
 
-    override suspend fun load(params: LoadParams<Key>): LoadResult<Key, PhotosRepository.Photo> {
+    override suspend fun load(params: LoadParams<Key>): LoadResult<Key, Photo> {
         val refreshKey = params.key ?: Key(
             page = 1,
             limit = pageSize
@@ -69,10 +69,10 @@ class PhotosPagingSource(
         )
     }
 
-    private fun GetPhotosQuery.Data.toPhotos(): List<PhotosRepository.Photo> =
+    private fun GetPhotosQuery.Data.toPhotos(): List<Photo> =
         this.photos?.data?.mapNotNull {
             try {
-                PhotosRepository.Photo(
+                Photo(
                     title = it?.title!!,
                     url = it.url!!,
                     id = it.id!!,

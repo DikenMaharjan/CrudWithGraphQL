@@ -16,7 +16,7 @@ import com.example.crudwithgraphql.feature_photos.view.CreatePhotos
 import com.example.crudwithgraphql.navigation.CreatePhotosRoute
 import com.example.crudwithgraphql.navigation.PhotosRoute
 import com.example.crudwithgraphql.ui.theme.CrudWithGraphQLTheme
-import com.example.crudwithgraphql.view.Photos
+import com.example.crudwithgraphql.feature_photos.view.Photos
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
