@@ -33,7 +33,8 @@ import com.example.crudwithgraphql.feature_photos.data.repo.Photo
 fun Photos(
     modifier: Modifier = Modifier,
     viewModel: PhotosViewModel = hiltViewModel(),
-    navigateToCreatePhotos: () -> Unit
+    navigateToCreatePhotos: () -> Unit,
+    navigateToUpdatePhoto: (Photo) -> Unit
 ) {
     val photos = viewModel.photos.collectAsLazyPagingItems()
 
@@ -64,7 +65,8 @@ fun Photos(
                     .pullRefresh(refreshState),
                 photos = photos,
                 showLoadingIndicator = showLoadingIndicator,
-                selectForDelete = viewModel::selectForDelete
+                selectForDelete = viewModel::selectForDelete,
+                navigateToUpdatePhoto = navigateToUpdatePhoto
             )
             PullRefreshIndicator(
                 refreshing = showPullRefreshIndicator,
@@ -87,7 +89,7 @@ fun Photos(
             },
             dismissButton = {
                 TextButton(onClick = viewModel::deselectDeleteSelection) {
-                    Text("Cancel")
+                    Text("No")
                 }
             },
             title = { Text("Are you sure?") },
@@ -109,7 +111,8 @@ fun PhotosList(
     modifier: Modifier = Modifier,
     photos: LazyPagingItems<Photo>,
     showLoadingIndicator: Boolean,
-    selectForDelete: (Photo) -> Unit
+    selectForDelete: (Photo) -> Unit,
+    navigateToUpdatePhoto: (Photo) -> Unit
 ) {
     LazyColumn(
         modifier = modifier
@@ -131,7 +134,8 @@ fun PhotosList(
                             .padding(12.dp)
                             .animateItemPlacement(),
                         photo = photo,
-                        selectForDelete = selectForDelete
+                        selectForDelete = selectForDelete,
+                        navigateToUpdatePhoto = navigateToUpdatePhoto
                     )
                 }
                 Divider(
@@ -153,7 +157,8 @@ fun PhotosList(
 fun PhotoItem(
     modifier: Modifier = Modifier,
     photo: Photo,
-    selectForDelete: (Photo) -> Unit
+    selectForDelete: (Photo) -> Unit,
+    navigateToUpdatePhoto: (Photo) -> Unit
 ) {
     Column(
         modifier = modifier
@@ -161,7 +166,11 @@ fun PhotoItem(
             .clip(MaterialTheme.shapes.medium)
             .background(MaterialTheme.colors.surface)
     ) {
-        PhotoItemHeader(photo = photo, selectForDelete = selectForDelete)
+        PhotoItemHeader(
+            photo = photo,
+            selectForDelete = selectForDelete,
+            navigateToUpdatePhoto = navigateToUpdatePhoto
+        )
         AsyncImage(
             model = photo.url,
             contentDescription = "Photo",
@@ -177,7 +186,8 @@ fun PhotoItem(
 @Composable
 fun PhotoItemHeader(
     photo: Photo,
-    selectForDelete: (Photo) -> Unit
+    selectForDelete: (Photo) -> Unit,
+    navigateToUpdatePhoto: (Photo) -> Unit
 ) {
     var menuOpened by remember {
         mutableStateOf(false)
@@ -202,7 +212,10 @@ fun PhotoItemHeader(
                 }
             )
             DropdownMenu(expanded = menuOpened, onDismissRequest = { menuOpened = false }) {
-                DropdownMenuItem(onClick = {}) {
+                DropdownMenuItem(onClick = {
+                    navigateToUpdatePhoto(photo)
+                    menuOpened = false
+                }) {
                     Text(text = "Update")
                 }
                 DropdownMenuItem(onClick = {

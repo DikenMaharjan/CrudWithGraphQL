@@ -13,10 +13,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.crudwithgraphql.feature_photos.view.CreatePhotos
+import com.example.crudwithgraphql.feature_photos.view.Photos
 import com.example.crudwithgraphql.navigation.CreatePhotosRoute
 import com.example.crudwithgraphql.navigation.PhotosRoute
 import com.example.crudwithgraphql.ui.theme.CrudWithGraphQLTheme
-import com.example.crudwithgraphql.feature_photos.view.Photos
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -45,13 +45,23 @@ class MainActivity : ComponentActivity() {
                             Photos(
                                 navigateToCreatePhotos = {
                                     navController.navigate(
-                                        CreatePhotosRoute.route
+                                        CreatePhotosRoute.routePrefix
+                                    )
+                                },
+                                navigateToUpdatePhoto = { photo ->
+                                    navController.navigate(
+                                        CreatePhotosRoute.createNavigationRoute(
+                                            id = photo.id,
+                                            title = photo.title,
+                                            url = photo.url
+                                        )
                                     )
                                 }
                             )
                         }
                         composable(
-                            route = CreatePhotosRoute.route
+                            route = CreatePhotosRoute.route,
+                            arguments = CreatePhotosRoute.createNavArguments()
                         ) {
                             CreatePhotos(
                                 popBackStack = navController::popBackStack

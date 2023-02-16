@@ -1,0 +1,12 @@
+mutation UpdatePhoto($id:ID!, $title:String, $url:String, $thumbnailUrl:String){
+    updatePhoto(
+        id:$id
+        input:{
+            title:$title
+            url:$url
+            thumbnailUrl:$thumbnailUrl
+        }
+    ){
+        id
+    }
+}

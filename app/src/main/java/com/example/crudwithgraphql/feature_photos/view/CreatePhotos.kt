@@ -39,6 +39,15 @@ fun CreatePhotos(
             context.showToast(state.errorMsg)
         }
     }
+    LaunchedEffect(viewModel.updateRequestState) {
+        val state = viewModel.updateRequestState
+        if (state is Resource.Success) {
+            context.showToast("Updated Successfully")
+            popBackStack()
+        } else if (state is Resource.Failure) {
+            context.showToast(state.errorMsg)
+        }
+    }
     Scaffold(
         modifier = modifier
             .fillMaxSize()
@@ -54,7 +63,7 @@ fun CreatePhotos(
                     }
                 },
                 title = {
-                    Text(text = "Create Photo")
+                    Text(text = "${viewModel.intention.intention} Photo")
                 }
             )
         }
@@ -66,7 +75,7 @@ fun CreatePhotos(
             contentAlignment = Alignment.Center
         ) {
             CreatePhotoForm(viewModel = viewModel)
-            if (viewModel.createRequestState is Resource.Loading) {
+            if (viewModel.shouldShowTouchConsumingDialog()) {
                 TouchConsumingDialog()
             }
         }
@@ -126,7 +135,7 @@ fun CreatePhotoForm(
                 .clip(MaterialTheme.shapes.large)
                 .padding(vertical = 32.dp)
         ) {
-            Text(text = "Create")
+            Text(text = viewModel.intention.intention)
         }
     }
 

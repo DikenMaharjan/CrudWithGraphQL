@@ -4,8 +4,10 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.apollographql.apollo3.ApolloClient
+import com.apollographql.apollo3.api.Optional
 import com.example.crudwithgraphql.CreatePhotoMutation
 import com.example.crudwithgraphql.DeletePhotoMutation
+import com.example.crudwithgraphql.UpdatePhotoMutation
 import com.example.crudwithgraphql.di.NonCancellableScope
 import com.example.crudwithgraphql.feature_photos.data.PhotosPagingSource
 import com.example.crudwithgraphql.network.Resource
@@ -64,6 +66,23 @@ class PhotosRepository @Inject constructor(
                     )
                 )
             }
+        }
+    }
+
+    suspend fun updatePhoto(
+        id: String,
+        photoTitle: String,
+        photoUrl: String
+    ): Resource<UpdatePhotoMutation.Data> {
+        return safeApiCall.execute {
+            apolloClient.mutation(
+                UpdatePhotoMutation(
+                    id = id,
+                    title = Optional.present(photoTitle),
+                    url = Optional.present(photoUrl),
+                    thumbnailUrl = Optional.present(photoUrl)
+                )
+            )
         }
     }
 }
