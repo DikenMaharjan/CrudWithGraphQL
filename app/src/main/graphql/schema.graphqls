@@ -145,8 +145,8 @@ input OperatorOptions {
 }
 
 type PageLimitPair {
-  page: Int
-  limit: Int
+  page: Int!
+  limit: Int!
 }
 
 type PageMetadata {

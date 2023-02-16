@@ -1,4 +1,4 @@
-package com.example.crudwithgraphql.data.datasource
+package com.example.crudwithgraphql.data.user.datasource
 
 import com.apollographql.apollo3.ApolloClient
 import com.example.crudwithgraphql.GetUsersQuery

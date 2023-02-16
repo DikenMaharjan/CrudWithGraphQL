@@ -40,7 +40,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.2.0'
+        kotlinCompilerExtensionVersion '1.4.2'
     }
     packagingOptions {
         resources {
@@ -66,6 +66,17 @@ dependencies {
 
     //Http Logging Interceptor
     implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.9'
+
+
+    //Paging
+    def paging_version = "3.1.1"
+    implementation "androidx.paging:paging-runtime:$paging_version"
+    implementation "androidx.paging:paging-compose:1.0.0-alpha18"
+
+
+    //Coil
+    implementation 'io.coil-kt:coil-compose:2.2.2'
+
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

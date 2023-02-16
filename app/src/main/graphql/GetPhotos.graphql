@@ -1,0 +1,27 @@
+query GetPhotos($page:Int!, $limit:Int!){
+    photos(
+        options:{
+            paginate:{
+                page:$page
+                limit:$limit
+            }
+        }
+    ){
+        data{
+            title
+            url
+            id
+            thumbnailUrl
+        }
+        links{
+            prev{
+                page
+                limit
+            }
+            next{
+                page
+                limit
+            }
+        }
+    }
+}

@@ -2,21 +2,17 @@ package com.example.crudwithgraphql
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.crudwithgraphql.data.repo.UsersRepository
+import androidx.paging.cachedIn
+import com.example.crudwithgraphql.data.photo.repo.PhotosRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 private const val TAG = "MainActivityViewModel"
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
-    private val usersRepository: UsersRepository
+    photosRepository: PhotosRepository
 ) : ViewModel() {
 
-    init {
-        viewModelScope.launch {
-
-        }
-    }
+    val photos = photosRepository.getPhotosPagingData().cachedIn(viewModelScope)
 }
