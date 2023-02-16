@@ -1,10 +1,10 @@
-package com.example.crudwithgraphql.data.photo.repo
+package com.example.crudwithgraphql.feature_photos.data.repo
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.apollographql.apollo3.ApolloClient
-import com.example.crudwithgraphql.data.photo.PhotosPagingSource
+import com.example.crudwithgraphql.feature_photos.data.PhotosPagingSource
 import com.example.crudwithgraphql.network.SafeApiCall
 import com.example.crudwithgraphql.utils.Constants
 import kotlinx.coroutines.flow.Flow

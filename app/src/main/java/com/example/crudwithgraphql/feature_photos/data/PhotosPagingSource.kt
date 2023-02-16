@@ -1,10 +1,10 @@
-package com.example.crudwithgraphql.data.photo
+package com.example.crudwithgraphql.feature_photos.data
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.apollographql.apollo3.ApolloClient
 import com.example.crudwithgraphql.GetPhotosQuery
-import com.example.crudwithgraphql.data.photo.repo.PhotosRepository
+import com.example.crudwithgraphql.feature_photos.data.repo.PhotosRepository
 import com.example.crudwithgraphql.network.Resource
 import com.example.crudwithgraphql.network.SafeApiCall
 

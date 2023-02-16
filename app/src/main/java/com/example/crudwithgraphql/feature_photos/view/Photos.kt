@@ -7,26 +7,27 @@ import androidx.compose.material.*
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import coil.compose.AsyncImage
-import com.example.crudwithgraphql.MainActivityViewModel
-import com.example.crudwithgraphql.data.photo.repo.PhotosRepository
+import com.example.crudwithgraphql.feature_photos.data.repo.PhotosRepository
+import com.example.crudwithgraphql.feature_photos.view.PhotosViewModel
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun AppRootView(
+fun Photos(
     modifier: Modifier = Modifier,
-    viewModel: MainActivityViewModel
+    viewModel: PhotosViewModel = hiltViewModel()
 ) {
     val photos = viewModel.photos.collectAsLazyPagingItems()
 
@@ -63,6 +64,7 @@ fun AppRootView(
         }
     }
 }
+
 
 @Composable
 fun PhotosList(
